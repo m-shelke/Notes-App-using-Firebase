@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/SkipCv"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground"
+        app:cardCornerRadius="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/round_close_24"
+            android:gravity="center_vertical"
+            android:text="Skip"
+            android:typeface="serif" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:padding="10dp">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/login_gif"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/login"
+            android:layout_centerHorizontal="true"/>
+
+        <!-- TextView: Just to show Liable text-->
+        <TextView
+            android:id="@+id/loginLableTv"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_gif"
+            android:typeface="serif"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"
+            android:text="Login To Your Account" />
+
+
+        <!--    LinearLayout with orientation of Horizontal containing 1 TextView and 1 ImageView -->
+        <LinearLayout
+            android:id="@+id/googleLoginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_rounded_bg"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_below="@id/loginLableTv">
+
+            <!--        TextView for Static text-->
+
+            <!--        ImageView for Google text image-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="6dp"
+                android:fontFamily="@font/roboto_bold"
+                android:gravity="center_vertical"
+                android:text="Login With "
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/google" />
+
+        </LinearLayout>
+
+
+
+        <!--        TextView for Static text-->
+        <TextView
+            android:id="@+id/orTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:text="--------OR--------"
+            android:typeface="serif"
+            android:layout_below="@id/googleLoginBtn"
+            android:textColor="@color/black" />
+
+
+
+
+
+        <!-- TextInputLayout: Input account email from login-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTil"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/orTextView"
+            android:layout_marginTop="10dp"
+            android:hint="Email"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            android:autofillHints="emailAddress"
+            app:startIconDrawable="@drawable/baseline_email_24">
+
+            <EditText
+                android:id="@+id/emailEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:autofillHints="emailAddress"
+                android:focusable="true"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--TextInputLayout: Input account password from login -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_Til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/emailTil"
+            android:layout_marginTop="10dp"
+            android:hint="Password"
+            android:autofillHints="password"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:passwordToggleEnabled="true"
+            app:startIconDrawable="@drawable/baseline_password_24">
+
+            <EditText
+                android:id="@+id/passwordEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:focusable="true"
+                android:autofillHints="password"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- TextView: click to goto RegisterEmailActivity -->
+        <TextView
+            android:id="@+id/noAccountTv"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password_Til"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/not_having_account_register"/>
+
+        <TextView
+            android:id="@+id/forgotPasswordTv"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/noAccountTv"
+            android:layout_marginTop="8dp"
+            android:text="@string/forgot_password_recover"/>
+
+        <!-- MaterialButton: clicked to login user. -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:minHeight="60dp"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:text="Login"
+            app:cornerRadius="8dp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

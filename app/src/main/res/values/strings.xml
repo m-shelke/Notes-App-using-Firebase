@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Notes App using Firebase</string>
+    <string name="already_having_account_login">Already Having Account..?  <b>Login Here..!!</b></string>
+    <string name="not_having_account_register">Not Having Account..? <b>Start Here..!!</b></string>
+    <string name="forgot_password_recover">Forgot Password..? <b>Click Here..!!</b></string>
+
+</resources>
