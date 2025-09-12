@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:gravity="center"
+    android:background="@drawable/preview_bgg">
+
+
+    <TextView
+        android:id="@+id/noteEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Edit"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/outline_edit_square_24"
+        android:drawablePadding="8dp"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/noteForward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Forward"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/outline_forward_24"
+        android:drawablePadding="8dp"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/noteDownload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Download"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/outline_download_24"
+        android:drawablePadding="8dp"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/noteDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Delete"
+        android:textAlignment="center"
+        android:textColor="#D50000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/outline_delete_24"
+        android:drawablePadding="8dp"
+        android:typeface="serif" />
+
+</LinearLayout>

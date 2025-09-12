@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="8dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/pdfFileNameTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="File Name: "/>
+
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pdfCaptionTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="PDF Caption"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp">
+
+        <EditText
+            android:id="@+id/pdfCaptionEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:clickable="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</LinearLayout>

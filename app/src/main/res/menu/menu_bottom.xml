@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+   <!-- Each <item> represents a menu entry with:
+
+    id: for identifying the menu item in code.
+    icon: the drawable shown with the item.
+    title: text displayed.
+    app:showAsAction="always": forces the icon to always show in the action bar if there's room.-->
+
+    <item
+        android:id="@+id/menu_home"
+        android:enabled="true"
+        android:icon="@drawable/baseline_home_24"
+        android:title="Home"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/menu_group"
+        android:enabled="true"
+        android:icon="@drawable/baseline_chat_bubble_24"
+        android:title="Group"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_my_save"
+        android:enabled="true"
+        android:icon="@drawable/baseline_bookmarks_24"
+        android:title="Pined"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menu_account"
+        android:enabled="true"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Account"
+        app:showAsAction="always" />
+
+</menu>

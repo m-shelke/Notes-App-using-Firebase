@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_margin="10dp"
+    card_view:cardCornerRadius="16dp"
+    card_view:cardElevation="6dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:ignore="NamespaceTypo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Room Name -->
+        <TextView
+            android:id="@+id/txtRoomName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Room Name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <!-- Created By -->
+        <TextView
+            android:id="@+id/txtCreatedBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Created by: Username"
+            android:textSize="14sp"
+            android:textColor="#5A5A5A"
+            android:layout_marginTop="4dp" />
+
+        <!-- Members -->
+        <TextView
+            android:id="@+id/txtMembers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Members: 0"
+            android:textSize="14sp"
+            android:textColor="#5A5A5A"
+            android:layout_marginTop="2dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal|center_vertical|center"
+            android:layout_marginTop="8dp"
+            android:padding="4dp"
+            android:gravity="center_horizontal|center_vertical|center">
+
+            <TextView
+                android:id="@+id/txtCheckRequestStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:text="Check Request"
+                android:typeface="serif"
+                android:textStyle="bold"
+               android:gravity="center"
+                android:layout_gravity="center_horizontal|center|center_vertical"
+                android:background="@drawable/preview_bg"
+                android:textAlignment="center"/>
+
+
+            <!-- Open Button -->
+            <Button
+                android:id="@+id/btnOpenRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="Open Room"
+                android:textAllCaps="false"
+                android:background="@drawable/preview_bg"
+                android:textColor="#FFFFFF"
+                android:elevation="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center|center_vertical|center_horizontal"
+                android:fontFamily="sans-serif-medium" />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

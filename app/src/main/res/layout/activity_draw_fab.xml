@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Activities.DrawFabActivity">
+
+    <com.example.notesappusingfirebase.text.WritingView
+        android:id="@+id/writing_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/fabMenuLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/expandFab"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toStartOf="@id/expandFab"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="TODO"
+            android:focusable="true"
+            android:src="@drawable/outline_clear_all_24"
+            app:fabSize="auto" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_undo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="TODO"
+            android:focusable="true"
+            android:src="@drawable/outline_undo_24"
+            app:fabSize="auto" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_redo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="TODO"
+            android:focusable="true"
+            android:src="@drawable/outline_redo_24"
+            app:fabSize="auto" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/outline_colorize_24"
+            app:fabSize="auto" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="TODO"
+            android:focusable="true"
+            android:src="@drawable/outline_save_alt_24"
+            app:fabSize="auto" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="TODO"
+            android:focusable="true"
+            android:src="@drawable/outline_cloud_upload_24"
+            app:fabSize="auto" />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/expandFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:backgroundTint="#D0C3E8"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:elevation="5dp"
+        android:focusable="true"
+        android:rotation="270"
+        android:src="@drawable/baseline_keyboard_double_arrow_up_24"
+        app:tint="@color/black" />
+
+
+    <LinearLayout
+        android:id="@+id/colorSetLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/shapeSetLinear"
+        android:layout_alignStart="@id/shapeSetLinear"
+        android:layout_alignEnd="@id/shapeSetLinear"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:onClick="yellowClick"
+            app:cardBackgroundColor="#FFD600"
+            app:cardCornerRadius="15dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:onClick="magentaClick"
+            app:cardBackgroundColor="#BE119D"
+            app:cardCornerRadius="15dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:onClick="redClick"
+            app:cardBackgroundColor="#D50000"
+            app:cardCornerRadius="15dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:onClick="greenClick"
+            app:cardBackgroundColor="#64DD17"
+            app:cardCornerRadius="15dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:onClick="blueClick"
+            app:cardBackgroundColor="#304FFE"
+            app:cardCornerRadius="15dp" />
+
+    </LinearLayout>
+
+    <com.example.notesappusingfirebase.text.VerticalSeekBar
+        android:id="@+id/verticalSeekBar"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_above="@+id/expandFab"
+        android:layout_alignStart="@id/expandFab"
+        android:layout_alignEnd="@id/expandFab"
+        app:vsb_barBackgroundColor="#6D6165"
+        app:vsb_barWidth="25dp"
+        app:vsb_max="100"
+        app:vsb_progress="0"
+        app:vsb_progressColor="#CFC2E7"
+        app:vsb_progress_from_bottom="true"
+        app:vsb_textColor="@color/black"
+        app:vsb_textEnabled="true"
+        app:vsb_thumb="@drawable/thumb"
+        app:vsb_thumbHeight="40dp"
+        app:vsb_thumbWidth="40dp" />
+
+
+    <LinearLayout
+        android:id="@+id/shapeSetLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/verticalSeekBar"
+        android:layout_alignStart="@id/verticalSeekBar"
+        android:layout_alignEnd="@id/verticalSeekBar"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/triangleShape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/triangle"
+        android:onClick="triangleClick"
+        android:background="@android:color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/circleShape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/circle"
+            android:layout_marginTop="3dp"
+            android:onClick="circleClick"
+            android:background="@android:color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/rectangleShape"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rectangle"
+            android:onClick="rectangleClick"
+            android:layout_marginTop="3dp"
+            android:background="@android:color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/linesShape"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/lines"
+            android:layout_marginTop="3dp"
+            android:onClick="linesClick"
+            android:background="@android:color/transparent"/>
+
+        <ImageButton
+            android:id="@+id/freeDraw"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/draw"
+            android:onClick="freeDrawClick"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+
+    <!-- Floating toggle button -->
+    <ToggleButton
+        android:id="@+id/moveToggleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="Move"
+        android:textOff="Draw"
+        android:backgroundTint="@android:color/holo_purple"
+        android:textColor="@android:color/white"
+        android:drawablePadding="4dp"
+        android:padding="10dp"/>
+
+
+</RelativeLayout>

@@ -2,6 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,28 +30,85 @@
         android:theme="@style/Theme.NotesAppUsingFirebase"
         tools:targetApi="31">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Chat.ImagePreviewActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
-            android:exported="true">
-
+            android:name=".Activities.MultipImageUploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.AdminRoomRequestsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.JoinRequestsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NotesAppUsingFirebase" />
+        <activity
+            android:name=".Activities.AddMembersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ShowMembersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.OpenRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.DeleteAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ProfileEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.DrawFabActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.EditFabActivity"
+            android:exported="false" /> <!-- Launch Activity -->
+        <activity
+            android:name=".Activities.SplashScreenActivity"
+            android:exported="true"
+            android:windowFullscreen="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
-
+            android:name=".Activities.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Activities.MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" /> <!-- Imported Font -->
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+
     </application>
+
+
 
 </manifest>

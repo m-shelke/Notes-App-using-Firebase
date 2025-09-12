@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="end"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingTop="4dp"
+    android:paddingEnd="8dp"
+    android:paddingBottom="4dp">
+
+    <LinearLayout
+        android:id="@+id/senderMainContainer"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bubble_sender"
+        android:gravity="end"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+        <!-- Reply Preview Layout -->
+        <LinearLayout
+            android:id="@+id/senderReplyLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="#1A000000"
+            android:orientation="vertical"
+            android:padding="6dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/senderReplyUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Replied to Mahesh"
+                android:textColor="#222"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/senderReplyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is replied message"
+                android:textColor="#444"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+        <!-- Sender Name (always "You") -->
+        <TextView
+            android:id="@+id/senderNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+
+        <!-- Main Bubble -->
+        <LinearLayout
+            android:id="@+id/senderBubble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="0dp">
+
+            <!-- TEXT Message -->
+            <TextView
+                android:id="@+id/senderMessageTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello this is my message"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+            <!-- IMAGE Message -->
+            <ImageView
+                android:id="@+id/senderImageIv"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
+            <!-- File Layout -->
+            <LinearLayout
+                android:id="@+id/senderFileLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="6dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/senderFileIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/doc" />
+
+                <TextView
+                    android:id="@+id/senderFileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:text="File.pdf"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Time + Seen ticks -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/senderTimeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|start|bottom"
+                android:text="10:20 PM"
+                android:textColor="#666"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:id="@+id/senderSeenTick"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/blue_tick"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <!-- Reaction -->
+        <TextView
+            android:id="@+id/senderReactionTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:text="❤️"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/seenLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/seenCountTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#888"
+            android:textSize="11sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/avatarContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </LinearLayout>
+
+
+</LinearLayout>
+

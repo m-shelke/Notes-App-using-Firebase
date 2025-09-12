@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.ShowMembersActivity">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search and Action"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
+        android:layout_marginHorizontal="5dp"
+        app:startIconDrawable="@drawable/baseline_search_24">
+
+        <EditText
+            android:id="@+id/searchEt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:clickable="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/totoalMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="People: "
+        android:layout_gravity="start|center_vertical"
+        android:textAlignment="textStart"
+        android:layout_marginHorizontal="5dp"
+        android:textSize="20sp"
+        android:padding="4dp"
+        android:textStyle="bold"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="80dp"
+        tools:listitem="@layout/show_member_item" />
+
+</LinearLayout>

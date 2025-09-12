@@ -5,7 +5,18 @@
     android:id="@+id/registerActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".Activities.RegisterActivity">
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:visibility="gone"
+        android:progress="0"/>
+
 
     <RelativeLayout
         android:id="@id/profileRl"
@@ -30,13 +41,11 @@
 
 
                 <!--ShapeableImageView: to show image picked from Camera/Gallery or from Database -->
-                <com.google.android.material.imageview.ShapeableImageView
+                <ImageView
                     android:id="@+id/profileImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
-                    android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
                     android:src="@drawable/person" />
 

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="end"
+    android:padding="8dp"
+    android:orientation="vertical">
+
+    <!-- Main message bubble -->
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bubble_sender"
+        android:padding="12dp"
+        android:orientation="vertical"
+        android:maxWidth="80dp">
+
+        <!-- Sender Name -->
+<!--        <TextView-->
+<!--            android:id="@+id/senderNameTv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="You"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="13sp"-->
+<!--            android:fontFamily="sans-serif-medium"-->
+<!--            android:paddingBottom="4dp" />-->
+
+        <!-- Message Text -->
+        <TextView
+            android:id="@+id/messageBodyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello, this is your message."
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif" />
+
+        <!-- File Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fileCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:id="@+id/fileLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/messageFileTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="FileName.pdf"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:textColor="@color/black"
+                    android:paddingBottom="4dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="4dp">
+
+                    <TextView
+                        android:id="@+id/messageTimeTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10:30 AM"
+                        android:textColor="#666"
+                        android:textSize="12sp" />
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/messageTypeTv"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text=" PDF"-->
+<!--                        android:layout_marginLeft="5dp"-->
+<!--                        android:textColor="#666"-->
+<!--                        android:textSize="12sp" />-->
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/fileDownloadIv"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/outline_download_24"
+                    app:tint="@color/black" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Time -->
+        <TextView
+            android:id="@+id/sentTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10:31 AM"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:paddingTop="6dp"
+            android:gravity="end" />
+
+    </LinearLayout>
+
+</LinearLayout>

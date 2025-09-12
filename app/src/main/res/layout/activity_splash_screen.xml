@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splashScreenActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.SplashScreenActivity">
+
+    <!--        GIF animation-->
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/progressBar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/splash_logo"
+        android:visibility="visible"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"/>
+
+    <!--ShapeableImageView: to show image picked from Camera/Gallery or from Database -->
+<!--    <ImageView-->
+<!--        android:id="@+id/notesIv"-->
+<!--        android:layout_width="120dp"-->
+<!--        android:layout_height="120dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/notes_icon" />-->
+
+
+</RelativeLayout>
