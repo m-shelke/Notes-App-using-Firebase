@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Root layout-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,10 +8,30 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+<!--    <ProgressBar-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/progressBar"-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_centerInParent="true"/>-->
+
+    <!--        GIF animation-->
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/progressBar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/wait"
+        android:visibility="gone"
+        android:background="#FDF6FE"
+        android:backgroundTint="#FDF6FE"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"/>
+
+<!--    CardView for Skip Button shape-->
     <androidx.cardview.widget.CardView
         android:id="@+id/SkipCv"
         android:layout_width="60dp"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
@@ -19,23 +40,27 @@
         android:foreground="?selectableItemBackground"
         app:cardCornerRadius="10dp">
 
+<!--  Skip static textview with drawable icon-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableStart="@drawable/round_close_24"
             android:gravity="center_vertical"
-            android:text="Skip"
-            android:typeface="serif" />
+            android:typeface="serif"
+            android:text="Skip" />
 
     </androidx.cardview.widget.CardView>
 
-
+<!-- another RelativeLayout-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="30dp"
+        android:visibility="visible"
+        android:id="@+id/uiPart"
         android:padding="10dp">
 
+<!--        GIF animation-->
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/login_gif"
             android:layout_width="150dp"
@@ -72,8 +97,6 @@
             android:layout_below="@id/loginLableTv">
 
             <!--        TextView for Static text-->
-
-            <!--        ImageView for Google text image-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,6 +107,7 @@
                 android:text="Login With "
                 android:textColor="@color/black" />
 
+            <!--        ImageView for Google text image-->
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="20dp"
@@ -91,8 +115,6 @@
                 android:src="@drawable/google" />
 
         </LinearLayout>
-
-
 
         <!--        TextView for Static text-->
         <TextView
@@ -108,8 +130,6 @@
             android:typeface="serif"
             android:layout_below="@id/googleLoginBtn"
             android:textColor="@color/black" />
-
-
 
 
 

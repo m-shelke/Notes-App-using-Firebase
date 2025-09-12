@@ -3,5 +3,6 @@
     <string name="already_having_account_login">Already Having Account..?  <b>Login Here..!!</b></string>
     <string name="not_having_account_register">Not Having Account..? <b>Start Here..!!</b></string>
     <string name="forgot_password_recover">Forgot Password..? <b>Click Here..!!</b></string>
+    <string name="default_web_client_id" translatable="false">144307311787-4s5qrc80gd4j3t2mg8jrd3d3lor1d5i5.apps.googleusercontent.com</string>
 
 </resources>
