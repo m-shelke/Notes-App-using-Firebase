@@ -8,9 +8,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="29" />
@@ -30,20 +35,23 @@
         android:theme="@style/Theme.NotesAppUsingFirebase"
         tools:targetApi="31">
         <activity
-            android:name=".Chat.ImagePreviewActivity"
+            android:name=".Activities.ForwardRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ImagePreviewActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.MultipImageUploadActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.AdminRoomRequestsActivity"
+            android:name=".Activities.AdminRequestStatusActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.JoinRequestsActivity"
             android:exported="false"
             android:theme="@style/Theme.NotesAppUsingFirebase" />
         <activity
-            android:name=".Activities.AddMembersActivity"
+            android:name=".Activities.AddRoomMembersActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.ShowMembersActivity"
@@ -61,13 +69,13 @@
             android:name=".Activities.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.ImageActivity"
+            android:name=".Activities.ImageNoteActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.DrawFabActivity"
+            android:name=".Activities.CanvasNoteActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.EditFabActivity"
+            android:name=".Activities.TextNoteActivity"
             android:exported="false" /> <!-- Launch Activity -->
         <activity
             android:name=".Activities.SplashScreenActivity"
@@ -106,9 +114,15 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <receiver
+            android:name=".Reminder.ReminderReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
 
     </application>
-
-
 
 </manifest>

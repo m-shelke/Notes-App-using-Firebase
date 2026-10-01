@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.ImageActivity">
+    tools:context=".Activities.ImageNoteActivity">
 
     <RelativeLayout
         android:id="@+id/toolbarRL"

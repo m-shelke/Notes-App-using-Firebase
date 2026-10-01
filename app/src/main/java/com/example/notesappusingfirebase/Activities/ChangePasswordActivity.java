@@ -61,8 +61,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
 
 
-
-
         String text = "If You Don't Know Current Password, then Click Here";
         SpannableString spannableString = new SpannableString(text);
 

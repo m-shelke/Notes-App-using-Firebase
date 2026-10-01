@@ -3,16 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="6dp"
+    android:id="@+id/receiverBubble"
     android:gravity="start"
     android:orientation="vertical">
 
+
     <LinearLayout
-        android:id="@+id/receiverBubble"
+        android:id="@+id/receiverLinear"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/bubble_receiver"
         android:padding="10dp">
+
+        <TextView
+            android:id="@+id/receiverForwardedLabelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forwarded"
+            android:textSize="11sp"
+            android:textColor="#777"
+            android:textStyle="italic"
+            android:visibility="gone"
+            android:paddingBottom="2dp"/>
+
+        <!--        SENDER NAME -->
+        <TextView
+            android:id="@+id/snNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sender Name"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
 
         <!-- Reply Preview -->
         <LinearLayout
@@ -40,17 +65,19 @@
                 android:textColor="#444" />
         </LinearLayout>
 
-<!--        SENDER NAME -->
+
+
+        <!-- Sender Name (always "You") -->
         <TextView
-            android:id="@+id/snNameTv"
+            android:id="@+id/noteTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sender Name"
+            android:text="Note Title"
             android:textColor="#000"
             android:textSize="15sp"
+            android:visibility="gone"
             android:textStyle="bold"
-            android:visibility="gone"/>
-
+            android:typeface="normal"/>
 
         <!-- TEXT MESSAGE -->
         <TextView

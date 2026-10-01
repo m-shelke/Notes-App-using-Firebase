@@ -17,13 +17,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.notesappusingfirebase.Chat.ImagePreviewActivity;
-import com.example.notesappusingfirebase.Model.RoomHeader;
-import com.example.notesappusingfirebase.Model.SavedItemModel;
-import com.example.notesappusingfirebase.Model.SavedListItem;
-import com.example.notesappusingfirebase.Model.SavedRow;
+import com.example.notesappusingfirebase.Activities.ImagePreviewActivity;
+import com.example.notesappusingfirebase.Helper.RoomHeader;
+import com.example.notesappusingfirebase.Model.SavedINoteModel;
+import com.example.notesappusingfirebase.Helper.SavedListItem;
+import com.example.notesappusingfirebase.Helper.SavedRow;
 import com.example.notesappusingfirebase.R;
-import com.example.notesappusingfirebase.SavedAdapter;
+import com.example.notesappusingfirebase.Adapter.SavedAdapter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,75 +40,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-//public class SavedFragment extends Fragment {
-//
-//    FragmentSavedBinding binding;
-//
-//    //Context for this fragment class
-//    private Context mContext;
-//
-//    private SavedAdapter adapter;
-//
-//    private final List<SavedItemModel> allItems = new ArrayList<>();
-//    private final List<SavedItemModel> pinnedItems = new ArrayList<>();
-//
-//    Map<String, String> roomNameMap = new HashMap<>();
-//
-//
-//    private DatabaseReference savedRef;
-//    private String myUid;
-//
-//    public SavedFragment() {
-//        // Required empty public constructor
-//    }
-//
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        //get and init the context for this fragment class
-//        mContext = context;
-//        super.onAttach(context);
-//    }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        binding = FragmentSavedBinding.inflate(LayoutInflater.from(mContext),container,false);
-//        return binding.getRoot();
-//    }
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//        myUid = FirebaseAuth.getInstance().getUid();
-//
-//        binding.savedRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        adapter = new SavedAdapter(getContext());
-//        binding.savedRecyclerView.setAdapter(adapter);
-//
-//        savedRef = FirebaseDatabase.getInstance().getReference("SavedItems").child(myUid);
-//
-//        loadSavedItems();
-//        setupSearch();
-//
-//    }
-
-
-
-
-
 public class SavedFragment extends Fragment {
 
-    private final List<SavedItemModel> allItems = new ArrayList<>();
+    private final List<SavedINoteModel> allItems = new ArrayList<>();
     EditText searchSavedEt;
-    private RecyclerView recyclerView;
     ChipGroup filterChipGroup;
+    String filterType = null;
+    private RecyclerView recyclerView;
     private View emptyView;
     private SavedAdapter adapter;
     private DatabaseReference savedRef;
     private String currentUid;
-
-    String filterType = null;
 
     public SavedFragment() {
     }
@@ -127,9 +69,7 @@ public class SavedFragment extends Fragment {
 
         currentUid = FirebaseAuth.getInstance().getUid();
 
-        savedRef = FirebaseDatabase.getInstance()
-                .getReference("SavedItems")
-                .child(currentUid);
+        savedRef = FirebaseDatabase.getInstance().getReference("SavedItems").child(currentUid);
 
         setupAdapter();
         attachSavedListener();
@@ -146,7 +86,7 @@ public class SavedFragment extends Fragment {
         adapter = new SavedAdapter(requireContext(), new SavedAdapter.Callback() {
 
             @Override
-            public void onItemClicked(SavedItemModel item) {
+            public void onItemClicked(SavedINoteModel item) {
                 openSavedItem(item);
             }
 
@@ -166,7 +106,7 @@ public class SavedFragment extends Fragment {
                 allItems.clear();
 
                 for (DataSnapshot s : snapshot.getChildren()) {
-                    SavedItemModel m = s.getValue(SavedItemModel.class);
+                    SavedINoteModel m = s.getValue(SavedINoteModel.class);
                     if (m != null) {
                         allItems.add(m);
                     }
@@ -198,12 +138,12 @@ public class SavedFragment extends Fragment {
     }
 
     // ---------------- GROUPING ----------------
-    private List<SavedListItem> buildGroupedList(List<SavedItemModel> items) {
+    private List<SavedListItem> buildGroupedList(List<SavedINoteModel> items) {
 
-        Map<String, List<SavedItemModel>> roomMap = new LinkedHashMap<>();
+        Map<String, List<SavedINoteModel>> roomMap = new LinkedHashMap<>();
         Map<String, String> roomNameMap = new HashMap<>();
 
-        for (SavedItemModel m : items) {
+        for (SavedINoteModel m : items) {
             if (!roomMap.containsKey(m.getRoomId())) {
                 roomMap.put(m.getRoomId(), new ArrayList<>());
                 roomNameMap.put(m.getRoomId(), m.getRoomName());
@@ -217,10 +157,10 @@ public class SavedFragment extends Fragment {
             grouped.add(new RoomHeader(roomId, roomNameMap.get(roomId)));
 
             // Sort pinned first
-            List<SavedItemModel> roomItems = roomMap.get(roomId);
+            List<SavedINoteModel> roomItems = roomMap.get(roomId);
             Collections.sort(roomItems, (a, b) -> Boolean.compare(b.isPinned(), a.isPinned()));
 
-            for (SavedItemModel m : roomItems) {
+            for (SavedINoteModel m : roomItems) {
                 grouped.add(new SavedRow(m));
             }
         }
@@ -229,25 +169,23 @@ public class SavedFragment extends Fragment {
     }
 
 
-
     // ---------------- ACTIONS ----------------
 
-    private void openSavedItem(SavedItemModel item) {
+    private void openSavedItem(SavedINoteModel item) {
 
-        if ("IMAGE".equals(item.getType())) {
+        if ("IMAGE".equals(item.getType()) && "CANVAS".equals(item.getType())) {
 
             Intent i = new Intent(requireContext(), ImagePreviewActivity.class);
-            i.putExtra("imageUrl", item.getFileUrl());
+            i.putExtra("imageUrl", item.getImageUrl());
             startActivity(i);
 
         } else if ("TEXT".equals(item.getType())) {
-
             Toast.makeText(requireContext(), item.getNote(), Toast.LENGTH_LONG).show();
-
+        } else if ("NOTETEXT".equals(item.getType())) {
+            Toast.makeText(requireContext(), item.getTitle(), Toast.LENGTH_LONG).show();
         } else {
-
             Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(item.getFileUrl()));
+            i.setData(Uri.parse(item.getImageUrl()));
             startActivity(i);
         }
     }
@@ -255,28 +193,28 @@ public class SavedFragment extends Fragment {
     private void setupSearch() {
         searchSavedEt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                applyFilters(filterType,s.toString());
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                applyFilters(filterType, s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
 
     private void applyFilters(String typeFilter, String query) {
 
-        List<SavedItemModel> filtered = new ArrayList<>();
+        List<SavedINoteModel> filtered = new ArrayList<>();
 
-        for (SavedItemModel m : allItems) {
+        for (SavedINoteModel m : allItems) {
             boolean matchesType = (typeFilter == null || m.getType().equals(typeFilter));
-            boolean matchesQuery = query.isEmpty() ||
-                    (m.getType().equals("TEXT") && m.getNote().toLowerCase().contains(query.toLowerCase())) ||
-                    (!m.getType().equals("TEXT") && m.getFileName().toLowerCase().contains(query.toLowerCase()));
+            boolean matchesQuery = query.isEmpty() || (m.getType().equals("TEXT") && m.getNote().toLowerCase().contains(query.toLowerCase())) || (!m.getType().equals("TEXT") && m.getNote().toLowerCase().contains(query.toLowerCase()));
 
             if (matchesType && matchesQuery) {
                 filtered.add(m);
@@ -323,6 +261,10 @@ public class SavedFragment extends Fragment {
                 filterType = "TEXT";
             } else if (chipId == R.id.chipImage) {
                 filterType = "IMAGE";
+            } else if (chipId == R.id.chipCanvas) {
+                filterType = "CANVAS";
+            } else if (chipId == R.id.chipNotes) {
+                filterType = "NOTETEXT";
             }
 
             applyFilters(filterType, searchSavedEt.getText().toString());

@@ -2,7 +2,10 @@ package com.example.notesappusingfirebase.Model;
 
 public class NotesModel {
 
-    String title,notes,search,url,delete,type;
+    public long reminderTime;      // millis, 0 = no reminder
+    String title, notes, search, url, delete, type;
+    private boolean reminderExpired;
+    private boolean reminderEnabled;
 
     public NotesModel() {
     }
@@ -53,5 +56,29 @@ public class NotesModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public long getReminderTime() {
+        return reminderTime;
+    }
+
+    public void setReminderTime(long reminderTime) {
+        this.reminderTime = reminderTime;
+    }
+
+    public boolean isReminderEnabled() {
+        return reminderEnabled;
+    }
+
+    public void setReminderEnabled(boolean reminderEnabled) {
+        this.reminderEnabled = reminderEnabled;
+    }
+
+    public boolean isReminderExpired() {
+        return reminderExpired;
+    }
+
+    public void setReminderExpired(boolean reminderExpired) {
+        this.reminderExpired = reminderExpired;
     }
 }

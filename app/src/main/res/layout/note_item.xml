@@ -30,15 +30,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/itemNote_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:padding="6dp"
-            android:src="@drawable/baseline_more_vert_24"
-            app:layout_constraintEnd_toEndOf="@id/noteItem_title"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!--        <ImageButton-->
+        <!--            android:id="@+id/itemNote_more"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="@android:color/transparent"-->
+        <!--            android:padding="6dp"-->
+        <!--            android:src="@drawable/baseline_more_vert_24"-->
+        <!--            app:layout_constraintEnd_toEndOf="@id/noteItem_title"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <io.github.glailton.expandabletextview.ExpandableTextView
             android:id="@+id/noteItem_note"
@@ -70,10 +70,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:background="@drawable/preview_bg" />
+                android:background="@drawable/preview_bg"
+                android:scaleType="fitCenter" />
 
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/item_NoteTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="4dp"
+            android:drawablePadding="1dp"
+            android:drawableTint="#666"
+            android:gravity="center"
+            android:text=" 05 Apr 2024, 03:21 PM"
+            android:textColor="#666"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/imageCardView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/item_NoteReminderTimeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:background="@drawable/bg_save_item"
+            android:drawableStart="@drawable/baseline_alarm_on_24"
+            android:drawablePadding="1dp"
+            android:drawableTint="#666"
+            android:gravity="center"
+            android:text=" 05 Apr 2024, 03:21 PM"
+            android:textColor="#666"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_NoteReminderExpiredTv"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:background="@drawable/bg_save_item"
+            android:padding="5dp"
+            android:drawableTint="#666"
+            android:gravity="center"
+            android:text="Reminder Expired"
+            android:textColor="#666"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

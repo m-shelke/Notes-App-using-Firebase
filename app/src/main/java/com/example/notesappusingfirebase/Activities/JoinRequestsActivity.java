@@ -15,7 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.notesappusingfirebase.Model.JoinRequestViewHolder;
+import com.example.notesappusingfirebase.ViewHolder.JoinRequestViewHolder;
 import com.example.notesappusingfirebase.Model.MembersModel;
 import com.example.notesappusingfirebase.Model.RoomModel;
 import com.example.notesappusingfirebase.R;
@@ -109,6 +109,7 @@ public class JoinRequestsActivity extends AppCompatActivity {
 
                 // read as DataSnapshot style (FirebaseRecyclerAdapter gives you model; simpler: fetch snapshot via getRef(pos).getKey())
                 String requestKey = getRef(position).getKey(); // roomAddress
+                assert requestKey != null;
                 DatabaseReference singleRef = requestsRef.child(requestKey);
 
                 singleRef.get().addOnSuccessListener(snapshot -> {

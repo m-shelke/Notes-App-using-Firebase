@@ -32,16 +32,34 @@
         app:layout_constraintStart_toEndOf="@id/item_fileIcon">
 
         <!-- TITLE -->
+<!--        <TextView-->
+<!--            android:id="@+id/savedTitleTv"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="2"-->
+<!--            android:text="@string/lorem_ipsum"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="16sp"-->
+<!--            android:letterSpacing="0.02" />-->
+
         <TextView
             android:id="@+id/savedTitleTv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="@string/lorem_ipsum"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:letterSpacing="0.02" />
+            android:text="Replied to Mahesh"
+            android:textColor="#222"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/saveMessageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This is replied message"
+            android:textColor="#444"
+            android:textSize="12sp" />
 
         <!-- META -->
         <TextView

@@ -17,9 +17,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.notesappusingfirebase.Model.RoomNoteMemberModel;
-import com.example.notesappusingfirebase.Package.ImagesUploadAdapter;
-import com.example.notesappusingfirebase.Package.MultipleImageModel;
+import com.example.notesappusingfirebase.Model.RoomChatMemberModel;
+import com.example.notesappusingfirebase.Adapter.ImagesUploadAdapter;
+import com.example.notesappusingfirebase.Model.MultipleImageModel;
 import com.example.notesappusingfirebase.R;
 import com.example.notesappusingfirebase.databinding.ActivityMultipImageUploadBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +45,7 @@ public class MultipImageUploadActivity extends AppCompatActivity {
     DatabaseReference roomListRef;
     StorageReference storageReference;
     String currentUid, address, roomName, senderName;
-    RoomNoteMemberModel roomNoteMemberModel;
+    RoomChatMemberModel roomChatMemberModel;
 
     private List<MultipleImageModel> selectedImages = new ArrayList<>();
     private ImagesUploadAdapter adapter;
@@ -84,7 +84,7 @@ public class MultipImageUploadActivity extends AppCompatActivity {
             Toast.makeText(this, "Room Value Missing", Toast.LENGTH_SHORT).show();
         }
 
-        roomNoteMemberModel = new RoomNoteMemberModel();
+        roomChatMemberModel = new RoomChatMemberModel();
         currentUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         storageReference = firebaseStorage.getReference("NoteFiles");
         roomListRef = firebaseDatabase.getReference("NoteList").child(address);
@@ -189,8 +189,8 @@ public class MultipImageUploadActivity extends AppCompatActivity {
 
                     long ts = new Date().getTime();
 
-                    // create RoomNoteMemberModel and push to Realtime DB
-                    RoomNoteMemberModel model = new RoomNoteMemberModel();
+                    // create RoomChatMemberModel and push to Realtime DB
+                    RoomChatMemberModel model = new RoomChatMemberModel();
                     model.setSenderName(senderName);           // your existing name var
                     model.setSenderId(currentUid);         // your existing userId var
                     model.setFileName(sel.fileName);

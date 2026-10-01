@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -146,7 +147,21 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         alertDialog.setPositiveButton("Open Mail", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(ForgotPasswordActivity.this, "Mail Box will be open", Toast.LENGTH_SHORT).show();
+
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_APP_EMAIL);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+
+                        } catch (Exception e) {
+                            Toast.makeText(
+                                    ForgotPasswordActivity.this,
+                                    "No email app found",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+
                     }
                 });
 

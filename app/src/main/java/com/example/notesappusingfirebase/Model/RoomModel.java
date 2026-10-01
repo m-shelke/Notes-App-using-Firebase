@@ -2,7 +2,7 @@ package com.example.notesappusingfirebase.Model;
 
 public class RoomModel {
 
-    String roomName,adminId,address,time,members,roomCreatedBy,search;
+    public String roomName, adminId, address, time, members, roomCreatedBy, search,roomId;
 
     public RoomModel() {
     }
@@ -61,5 +61,13 @@ public class RoomModel {
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
     }
 }

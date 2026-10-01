@@ -18,6 +18,17 @@
         android:orientation="vertical"
         android:padding="10dp">
 
+        <TextView
+            android:id="@+id/senderForwardedLabelTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forwarded"
+            android:textSize="11sp"
+            android:textColor="#777"
+            android:textStyle="italic"
+            android:visibility="gone"
+            android:paddingBottom="2dp"/>
+
 
         <!-- Reply Preview Layout -->
         <LinearLayout
@@ -52,13 +63,15 @@
 
         <!-- Sender Name (always "You") -->
         <TextView
-            android:id="@+id/senderNameTv"
+            android:id="@+id/noteTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You"
+            android:text="Note Title"
             android:textColor="#000"
             android:textSize="15sp"
-            android:textStyle="bold" />
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:typeface="normal"/>
 
 
         <!-- Main Bubble -->
@@ -69,15 +82,6 @@
             android:orientation="vertical"
             android:padding="0dp">
 
-            <!-- TEXT Message -->
-            <TextView
-                android:id="@+id/senderMessageTv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello this is my message"
-                android:textColor="#000"
-                android:textSize="15sp"
-                android:visibility="gone" />
 
             <!-- IMAGE Message -->
             <ImageView
@@ -87,6 +91,19 @@
                 android:layout_marginBottom="6dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                android:src="@drawable/person"
+                android:layout_gravity="end|bottom"
+                android:visibility="gone" />
+
+            <!-- TEXT Message -->
+            <TextView
+                android:id="@+id/senderMessageTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello this is my message"
+                android:textColor="#000"
+                android:textSize="15sp"
+                android:layout_gravity="end|bottom"
                 android:visibility="gone" />
 
             <!-- File Layout -->

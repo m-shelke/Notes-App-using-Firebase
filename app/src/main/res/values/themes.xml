@@ -7,4 +7,16 @@
 
     <style name="Theme.NotesAppUsingFirebase" parent="Base.Theme.NotesAppUsingFirebase" />
 
+<!--    <style name="Theme.MyApp.Splash" parent="Theme.Material3.DayNight.NoActionBar">-->
+<!--        &lt;!&ndash; Background shown instantly by OS &ndash;&gt;-->
+<!--        <item name="android:windowSplashScreenBackground">@color/blue</item>-->
+
+<!--        &lt;!&ndash; App icon shown by OS &ndash;&gt;-->
+<!--        <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_logo</item>-->
+
+<!--        &lt;!&ndash; Remove animation delay &ndash;&gt;-->
+<!--        <item name="android:windowSplashScreenAnimationDuration">0</item>-->
+<!--    </style>-->
+
+
 </resources>

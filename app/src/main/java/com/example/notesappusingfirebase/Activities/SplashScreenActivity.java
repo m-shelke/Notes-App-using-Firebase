@@ -17,6 +17,7 @@ import com.example.notesappusingfirebase.R;
 import com.example.notesappusingfirebase.databinding.ActivitySplashScreenBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
@@ -30,6 +31,9 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         EdgeToEdge.enable(this);
 
         //inflating activity layout

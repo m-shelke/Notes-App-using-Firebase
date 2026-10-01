@@ -15,7 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.notesappusingfirebase.Model.AddMembersViewHolder;
+import com.example.notesappusingfirebase.ViewHolder.AddRoomMembersViewHolder;
 import com.example.notesappusingfirebase.Model.MembersModel;
 import com.example.notesappusingfirebase.R;
 import com.example.notesappusingfirebase.databinding.ActivityShowMembersBinding;
@@ -43,8 +43,8 @@ public class ShowMembersActivity extends AppCompatActivity {
     String currentUid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
     String address, adminId;
 
-    FirebaseRecyclerAdapter<MembersModel, AddMembersViewHolder> adminAdapter;
-    FirebaseRecyclerAdapter<MembersModel, AddMembersViewHolder> usersAdapter;
+    FirebaseRecyclerAdapter<MembersModel, AddRoomMembersViewHolder> adminAdapter;
+    FirebaseRecyclerAdapter<MembersModel, AddRoomMembersViewHolder> usersAdapter;
 
     boolean isSelectionMode = false;
     ArrayList<String> selectedUsers = new ArrayList<>();
@@ -121,16 +121,16 @@ public class ShowMembersActivity extends AppCompatActivity {
                         .setQuery(adminQuery, MembersModel.class)
                         .build();
 
-        adminAdapter = new FirebaseRecyclerAdapter<MembersModel, AddMembersViewHolder>(adminOptions) {
+        adminAdapter = new FirebaseRecyclerAdapter<MembersModel, AddRoomMembersViewHolder>(adminOptions) {
             @NonNull
             @Override
-            public AddMembersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public AddRoomMembersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_member_item, parent, false);
-                return new AddMembersViewHolder(view);
+                return new AddRoomMembersViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull AddMembersViewHolder holder, int position, @NonNull MembersModel model) {
+            protected void onBindViewHolder(@NonNull AddRoomMembersViewHolder holder, int position, @NonNull MembersModel model) {
 
                 holder.adminTv.setVisibility(View.VISIBLE);// admin doesn't get invited
                 holder.setShowMembersProfile(ShowMembersActivity.this, model.getName(), model.getDate(), model.getProfile());
@@ -147,16 +147,16 @@ public class ShowMembersActivity extends AppCompatActivity {
                         .build();
 
 
-        usersAdapter = new FirebaseRecyclerAdapter<MembersModel, AddMembersViewHolder>(userOptions) {
+        usersAdapter = new FirebaseRecyclerAdapter<MembersModel, AddRoomMembersViewHolder>(userOptions) {
             @NonNull
             @Override
-            public AddMembersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public AddRoomMembersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_member_item, parent, false);
-                return new AddMembersViewHolder(view);
+                return new AddRoomMembersViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull AddMembersViewHolder holder, int position, @NonNull MembersModel model) {
+            protected void onBindViewHolder(@NonNull AddRoomMembersViewHolder holder, int position, @NonNull MembersModel model) {
 
                 String userId = getRef(position).getKey();
 
@@ -279,16 +279,16 @@ public class ShowMembersActivity extends AppCompatActivity {
                         .build();
 
 
-        usersAdapter = new FirebaseRecyclerAdapter<MembersModel, AddMembersViewHolder>(userOptions) {
+        usersAdapter = new FirebaseRecyclerAdapter<MembersModel, AddRoomMembersViewHolder>(userOptions) {
             @NonNull
             @Override
-            public AddMembersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public AddRoomMembersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_member_item, parent, false);
-                return new AddMembersViewHolder(view);
+                return new AddRoomMembersViewHolder(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull AddMembersViewHolder holder, int position, @NonNull MembersModel model) {
+            protected void onBindViewHolder(@NonNull AddRoomMembersViewHolder holder, int position, @NonNull MembersModel model) {
 
                 String userId = getRef(position).getKey();
 

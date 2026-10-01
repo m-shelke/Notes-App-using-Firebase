@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,12 +20,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.notesappusingfirebase.Activities.AdminRoomRequestsActivity;
+import com.example.notesappusingfirebase.Activities.AdminRequestStatusActivity;
 import com.example.notesappusingfirebase.Activities.JoinRequestsActivity;
 import com.example.notesappusingfirebase.Activities.OpenRoomActivity;
 import com.example.notesappusingfirebase.Model.MembersModel;
 import com.example.notesappusingfirebase.Model.RoomModel;
-import com.example.notesappusingfirebase.Model.RoomViewHolder;
+import com.example.notesappusingfirebase.ViewHolder.RoomViewHolder;
 import com.example.notesappusingfirebase.R;
 import com.example.notesappusingfirebase.databinding.FragmentGroupBinding;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -232,7 +231,7 @@ public class GroupFragment extends Fragment {
                         String adminId = model.getAdminId();
                         String address = model.getAddress();
 
-                        Intent intent = new Intent(mContext, AdminRoomRequestsActivity.class);
+                        Intent intent = new Intent(mContext, AdminRequestStatusActivity.class);
                         intent.putExtra("roomName", roomName);
                         intent.putExtra("adminId", adminId);
                         intent.putExtra("address", address);
@@ -386,7 +385,7 @@ public class GroupFragment extends Fragment {
                         String adminId = model.getAdminId();
                         String address = model.getAddress();
 
-                        Intent intent = new Intent(mContext, AdminRoomRequestsActivity.class);
+                        Intent intent = new Intent(mContext, AdminRequestStatusActivity.class);
                         intent.putExtra("roomName", roomName);
                         intent.putExtra("adminId", adminId);
                         intent.putExtra("address", address);

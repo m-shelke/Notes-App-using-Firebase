@@ -85,8 +85,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
         binding.knowCurrentPinTv.setMovementMethod(LinkMovementMethod.getInstance());
         binding.knowCurrentPinTv.setHighlightColor(Color.TRANSPARENT);
 
-
-
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user == null) return;

@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.notesappusingfirebase"
-        minSdk = 24
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -85,6 +85,10 @@ dependencies {
 
     implementation("org.apache.poi:poi-ooxml:4.0.1")
     implementation("org.apache.poi:poi-scratchpad:4.0.1")
+
+    dependencies {
+        implementation("androidx.core:core-splashscreen:1.0.1")
+    }
 
 
 }

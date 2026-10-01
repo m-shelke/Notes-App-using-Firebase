@@ -28,114 +28,80 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <!--    <com.google.android.material.chip.ChipGroup-->
-    <!--        android:id="@+id/filterGroup"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:padding="8dp"-->
-    <!--        app:singleSelection="true">-->
-
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            android:id="@+id/chip_all"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="All" />-->
-
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            android:id="@+id/chip_text"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Text" />-->
-
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            android:id="@+id/chip_image"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Images" />-->
-
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            android:id="@+id/chip_pdf"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="PDF" />-->
-
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            android:id="@+id/chip_doc"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="DOC" />-->
-
-    <!--        <com.google.android.material.chip.Chip-->
-    <!--            android:id="@+id/chip_ppt"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="PPT" />-->
-
-    <!--    </com.google.android.material.chip.ChipGroup>-->
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/filterChipGroup"
-            android:layout_width="match_parent"
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            app:selectionRequired="false"
-            app:singleSelection="true">
+            android:overScrollMode="never"
+            android:scrollbars="horizontal">
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chipAll"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Choice"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="All" />-->
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipImage"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/filterChipGroup"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Image" />
+                android:padding="8dp"
+                app:selectionRequired="false"
+                app:singleSelection="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipPdf"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PDF" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipNotes"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notes" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipDoc"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DOC" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipImage"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Image" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipPpt"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PPT" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipPdf"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PDF" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipText"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Text" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDoc"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DOC" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipPpt"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PPT" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipText"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Text" />
 
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipCanvas"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Canvas" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
 
     </LinearLayout>
-
 
     <TextView
         android:id="@+id/emptyView"

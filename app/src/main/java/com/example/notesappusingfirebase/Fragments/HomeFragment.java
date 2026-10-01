@@ -1,8 +1,12 @@
 package com.example.notesappusingfirebase.Fragments;
 
+import static android.content.Context.ALARM_SERVICE;
+
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -48,10 +52,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
-import com.example.notesappusingfirebase.Activities.DrawFabActivity;
-import com.example.notesappusingfirebase.Model.NoteViewHolder;
+import com.example.notesappusingfirebase.Activities.CanvasNoteActivity;
+import com.example.notesappusingfirebase.Activities.ForwardRoomActivity;
 import com.example.notesappusingfirebase.Model.NotesModel;
+import com.example.notesappusingfirebase.Model.RoomChatMemberModel;
 import com.example.notesappusingfirebase.R;
+import com.example.notesappusingfirebase.Reminder.ReminderReceiver;
+import com.example.notesappusingfirebase.ViewHolder.NoteViewHolder;
 import com.example.notesappusingfirebase.databinding.FragmentHomeBinding;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -76,16 +83,18 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "IMAGE_CHANGE_TAG";
-    DatabaseReference databaseReference;
-    String currentUid;
+    DatabaseReference databaseReference, userAccountRef;
+    String currentUid, name, email, imageUrl, userId;
     FirebaseRecyclerAdapter<NotesModel, NoteViewHolder> adapter;
     ImageView noteImageView;
     TextView changeNoteImageTv;
@@ -102,6 +111,7 @@ public class HomeFragment extends Fragment {
     private LinearProgressIndicator progressBar;
 
     private boolean isCancelled = false;
+
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -135,6 +145,7 @@ public class HomeFragment extends Fragment {
                 }
             }
     );
+
     private ActivityResultLauncher<String> requestsStoragePermission = registerForActivityResult(
             new ActivityResultContracts.RequestPermission(),
             new ActivityResultCallback<Boolean>() {
@@ -153,6 +164,7 @@ public class HomeFragment extends Fragment {
                 }
             }
     );
+
     private ActivityResultLauncher<Intent> cameraActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -161,7 +173,7 @@ public class HomeFragment extends Fragment {
 
                     //check if image capture or not
                     if (result.getResultCode() == Activity.RESULT_OK) {
-                        //Image Captured, we have image in imageUri as asinged in PickImageCamera()
+                        //Image Captured, we have image in imageUri as assigned in PickImageCamera()
                         Log.d(TAG, "onActivityResult: Image Capture " + imageUri);
 
                         //set to profileIv
@@ -180,6 +192,7 @@ public class HomeFragment extends Fragment {
                 }
             }
     );
+
     private ActivityResultLauncher<String[]> requestCameraPermission = registerForActivityResult(
             new ActivityResultContracts.RequestMultiplePermissions(),
             new ActivityResultCallback<Map<String, Boolean>>() {
@@ -277,28 +290,75 @@ public class HomeFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("Notes").child(currentUid);
 
         // Load all notes initially
-        loadNotes("image");
+        loadNotes("IMAGE");
         highlightSelectedButton(binding.btnImageNotes);
 
         binding.btnTextNotes.setOnClickListener(v -> {
-            currentFilterType = "text";
-            loadNotes("text");
+            currentFilterType = "NOTETEXT";
+            loadNotes(currentFilterType);
             highlightSelectedButton(binding.btnTextNotes);
         });
         binding.btnImageNotes.setOnClickListener(v -> {
-            currentFilterType = "image";
-            loadNotes("image");
+            currentFilterType = "IMAGE";
+            loadNotes(currentFilterType);
             highlightSelectedButton(binding.btnImageNotes);
         });
         binding.btnCanvasNotes.setOnClickListener(v -> {
-            currentFilterType = "canvas";
+            currentFilterType = "CANVAS";
             loadNotes(currentFilterType);
-            loadNotes("canvas");
             highlightSelectedButton(binding.btnCanvasNotes);
         });
 
         setupSearch();
+        userAccountRef = FirebaseDatabase.getInstance().getReference().child("NotesUserAccounts");
+        userAccountRef.child(Objects.requireNonNull(currentUid)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                if (snapshot.exists()) {
+                    //get User Info, spelling should be as in Firebase realtime database
+                    email = "" + snapshot.child("email").getValue();
+                    name = "" + snapshot.child("name").getValue();
+                    imageUrl = (String) snapshot.child("profile").getValue();
+                    userId = (String) snapshot.child("userId").getValue();
+
+//                    binding.nameTv.setText(name);
+//                    binding.emailTv.setText(email);
+//                    Glide.with(mContext).load(imageUrl).into(binding.userProfileIv);
+
+//                    try {
+//
+//                        RequestOptions requestOptions = new RequestOptions().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+//
+//                        Glide.with(mContext)
+//                                .load(imageUrl)
+//                                .placeholder(R.drawable.person)
+//                                .apply(requestOptions)
+//                                .listener(new RequestListener<Drawable>() {
+//                                    @Override
+//                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, @NonNull Target<Drawable> target, boolean isFirstResource) {
+//                                        Log.e("GlideError", "Load failed", e);
+//                                        return false;
+//                                    }
+//
+//                                    @Override
+//                                    public boolean onResourceReady(@NonNull Drawable resource, @NonNull Object model, Target<Drawable> target, @NonNull DataSource dataSource, boolean isFirstResource) {
+//                                        return false;
+//                                    }
+//                                })
+//                                .into(binding.userProfileIv);
+//
+//                    } catch (Exception e) {
+//                        Log.e("TAG", Objects.requireNonNull(e.getMessage()));
+//                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(mContext, "Fetching Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void highlightSelectedButton(Button selectedButton) {
@@ -353,10 +413,41 @@ public class HomeFragment extends Fragment {
                 String delete = getItem(position).getDelete();
                 String type = getItem(position).getType();
 
-                holder.itemNote_more.setOnClickListener(new View.OnClickListener() {
+                long deleteLong = Long.parseLong(model.getDelete());
+
+                String reminder_time = String.valueOf(model.getReminderTime());
+                Log.e("REMINDER_TIME_TELL", reminder_time);
+
+                Date date = new Date(deleteLong);
+                android.icu.text.SimpleDateFormat formatter = new android.icu.text.SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+                String formattedDate = formatter.format(date);
+
+                Date date1 = new Date(model.getReminderTime());
+                android.icu.text.SimpleDateFormat formatter1 = new android.icu.text.SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault());
+                String noteReminderTime = formatter1.format(date1);
+
+
+                holder.noteItem_time.setText(formattedDate);
+                Log.e("FORMATTED_DATE", String.valueOf(formattedDate));
+
+                if (model.getReminderTime() == 0L) {
+                    holder.reminderTimeTv.setVisibility(View.GONE);
+                    holder.noteReminderExpired.setVisibility(View.GONE);
+                } else {
+                    holder.reminderTimeTv.setText(noteReminderTime);
+                }
+
+                if (model.isReminderEnabled() && model.isReminderExpired()) {
+                    holder.noteReminderExpired.setVisibility(View.VISIBLE);
+                    holder.reminderTimeTv.setVisibility(View.GONE);
+                    holder.noteReminderExpired.setText("Reminder Expired");
+                }
+
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        moreOptions(postKey, title, note, url, delete, type);
+                        moreOptions(postKey, title, note, url, delete, type, model.getReminderTime());
                     }
                 });
             }
@@ -365,7 +456,8 @@ public class HomeFragment extends Fragment {
         adapter.startListening();
     }
 
-    private void moreOptions(String postKey, String title, String note, String url, String delete, String type) {
+    private void moreOptions(String postKey, String title, String note, String url, String delete, String type, long reminderTime) {
+
         // Inflate your custom layout
         View sheetView = LayoutInflater.from(requireContext()).inflate(R.layout.bottom_sheet, null);
 
@@ -379,9 +471,16 @@ public class HomeFragment extends Fragment {
         TextView forwardTv = sheetView.findViewById(R.id.noteForward);
         TextView downloadTv = sheetView.findViewById(R.id.noteDownload);
         TextView deleteTv = sheetView.findViewById(R.id.noteDelete);
+        TextView dismissTv = sheetView.findViewById(R.id.noteReminderDismiss);
+
+        if (reminderTime == 0L) {
+            dismissTv.setVisibility(View.GONE);
+        } else {
+            dismissTv.setVisibility(View.VISIBLE);
+        }
 
         // Show download only for image/text/canvas types
-        if (type.equals("text") || type.equals("image") || type.equals("canvas")) {
+        if (type.equals("NOTETEXT") || type.equals("IMAGE") || type.equals("CANVAS")) {
             downloadTv.setVisibility(View.VISIBLE);
         } else {
             downloadTv.setVisibility(View.GONE);
@@ -393,9 +492,18 @@ public class HomeFragment extends Fragment {
             bottomSheetDialog.dismiss();
         });
 
-        // Forward option
         forwardTv.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Forward clicked", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(mContext, ForwardRoomActivity.class);
+
+            // 🔥 convert note → forwarder payload
+            ArrayList<RoomChatMemberModel> list = new ArrayList<>();
+            list.add(convertNoteToRoomMessage(postKey, title, note, url, type));
+
+            intent.putParcelableArrayListExtra("messages", list);
+            intent.putExtra("address", "HOME_NOTE"); // dummy / optional
+
+            startActivity(intent);
             bottomSheetDialog.dismiss();
         });
 
@@ -438,7 +546,7 @@ public class HomeFragment extends Fragment {
 
                         // Delete from Firebase Storage (if image or canvas)
                         if (url != null && !url.isEmpty() &&
-                                (type != null && (type.equals("image") || type.equals("canvas")))) {
+                                (type != null && (type.equals("IMAGE") || type.equals("CANVAS")))) {
                             StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(url);
                             storageReference.delete().addOnCompleteListener(task -> {
                                 if (task.isSuccessful()) {
@@ -464,6 +572,44 @@ public class HomeFragment extends Fragment {
 
             noBtn.setOnClickListener(btn -> confirmDeleteSheet.dismiss());
         });
+
+        dismissTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelReminder(postKey);
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Notes").child(currentUid).child(postKey);
+                ref.child("reminderTime").setValue(0);
+                ref.child("reminderEnabled").setValue(false);
+                bottomSheetDialog.dismiss();
+            }
+        });
+    }
+
+    private RoomChatMemberModel convertNoteToRoomMessage(String noteId, String title, String note, String url, String type) {
+
+        RoomChatMemberModel model = new RoomChatMemberModel();
+
+        model.setMessageId(noteId);
+        model.setSenderId(userId);
+        model.setSenderName(name);
+
+        model.setType(type);
+        model.setNote(note);
+        model.setTitle(title);
+
+        if ("IMAGE".equals(type) || "CANVAS".equals(type)) {
+            model.setImageUrl(url);
+        }
+
+        model.setTimestamp(System.currentTimeMillis());
+        model.setSeenBy(new HashMap<>());
+
+        // ⭐ FORWARD FLAGS
+        model.setForwarded(true);
+        model.setForwardedFrom(name);
+
+
+        return model;
     }
 
     private void editDialog(String postKey, String title, String note, String type, String url, String delete) {
@@ -487,9 +633,9 @@ public class HomeFragment extends Fragment {
                 .setView(view)
                 .create();
 
-        if (type.equals("text")) {
+        if (type.equals("NOTETEXT")) {
             cardNoteIv.setVisibility(View.GONE);
-        } else if (type.equals("image")) {
+        } else if (type.equals("IMAGE")) {
             cardNoteIv.setVisibility(View.VISIBLE);
             changeNoteImageTv.setVisibility(View.VISIBLE);
 
@@ -522,8 +668,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (type.equals("canvas")) {
-                    Intent intent = new Intent(mContext, DrawFabActivity.class);
+                if (type.equals("CANVAS")) {
+                    Intent intent = new Intent(mContext, CanvasNoteActivity.class);
                     intent.putExtra("postKey", postKey);
                     intent.putExtra("title", title);
                     intent.putExtra("note", note);
@@ -532,7 +678,7 @@ public class HomeFragment extends Fragment {
                     intent.putExtra("type", type); // "canvas"
                     mContext.startActivity(intent);
 
-                    Log.e(TAG, String.valueOf(type.equals("canvas")));
+                    Log.e(TAG, String.valueOf(type.equals("CANVAS")));
                 } else {
                     imagePickDialog();
                     Log.e("DELETE", delete);
@@ -553,10 +699,10 @@ public class HomeFragment extends Fragment {
                     noteBodyEd.setError("Note Required");
                     noteBodyEd.requestFocus();
                 } else {
-                    if (type.equals("text")) {
+                    if (type.equals("NOTETEXT")) {
                         updateTextNote(postKey, noteTitleEd.getText().toString().trim(), noteBodyEd.getText().toString().trim());
                         dialog.dismiss();
-                    } else if (type.equals("image") || type.equals("canvas")) {
+                    } else if (type.equals("IMAGE") || type.equals("CANVAS")) {
                         if (imageUri != null) {
                             uploadNewImageAndUpdate(postKey, newNoteTitleStr, newNoteBodyStr, imageUri, delete, dialog);
                         } else {
@@ -719,17 +865,21 @@ public class HomeFragment extends Fragment {
                     Button selectedButton = getSelectedButton();
                     if (selectedButton != null) {
                         if (selectedButton == binding.btnTextNotes)
-                            loadNotes("text");
+                            loadNotes("NOTETEXT");
                         else if (selectedButton == binding.btnImageNotes)
-                            loadNotes("image");
+                            loadNotes("IMAGE");
                         else if (selectedButton == binding.btnCanvasNotes)
-                            loadNotes("canvas");
+                            loadNotes("CANVAS");
                     } else {
                         loadNotes(null);
                     }
                 } else {
                     // ✅ Only run search if user typed something
                     search(searchQuery);
+                }
+
+                if (searchQuery.isBlank()) {
+                    loadNotes(null);
                 }
             }
 
@@ -784,10 +934,10 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     protected void onBindViewHolder(@NonNull NoteViewHolder holder, int position, @NonNull NotesModel model) {
+
                         // Only show notes matching both search text and current filter type
                         if (currentFilterType == null || model.getType().equals(currentFilterType)) {
-                            holder.setNote(getActivity(), model.getTitle(), model.getNotes(),
-                                    model.getSearch(), model.getUrl(), model.getDelete(), model.getType());
+                            holder.setNote(getActivity(), model.getTitle(), model.getNotes(), model.getSearch(), model.getUrl(), model.getDelete(), model.getType());
                             holder.itemView.setVisibility(View.VISIBLE);
                         } else {
                             holder.itemView.setVisibility(View.GONE);
@@ -813,191 +963,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-//    private void saveNoteAsPDF(String title, String noteText, String imageUrl, String noteType) {
-//        new Thread(() -> {
-//            try {
-//                // If this is an image or canvas note, load the image first (synchronously)
-//                Bitmap imageBitmap = null;
-//                if ("image".equalsIgnoreCase(noteType) && imageUrl != null && !imageUrl.trim().isEmpty()) {
-//                    try {
-//                        URL url = new URL(imageUrl);
-//                        imageBitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                } else if ("canvas".equalsIgnoreCase(noteType)) {
-//                    try {
-//                        URL url = new URL(imageUrl);
-//                        imageBitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                // Create PDF document
-//                PdfDocument pdfDocument = new PdfDocument();
-//                int pageWidth = 595, pageHeight = 842, margin = 40;
-//
-//                Paint titlePaint = new Paint();
-//                titlePaint.setColor(Color.BLACK);
-//                titlePaint.setTextSize(18f);
-//                titlePaint.setFakeBoldText(true);
-//
-//                TextPaint bodyPaint = new TextPaint();
-//                bodyPaint.setColor(Color.BLACK);
-//                bodyPaint.setTextSize(14f);
-//
-//                Paint headerPaint = new Paint();
-//                headerPaint.setColor(Color.DKGRAY);
-//                headerPaint.setTextSize(12f);
-//
-//                Paint footerPaint = new Paint();
-//                footerPaint.setColor(Color.GRAY);
-//                footerPaint.setTextSize(10f);
-//
-//                int currentPageNumber = 1;
-//                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, currentPageNumber).create();
-//                PdfDocument.Page page = pdfDocument.startPage(pageInfo);
-//                Canvas canvas = page.getCanvas();
-//
-//                float y = margin + 40;
-//
-//                // ---------- HEADER ----------
-//                String headerText = String.valueOf(R.string.app_name);
-//                String dateText = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).format(new Date());
-//                canvas.drawText(headerText, margin, 30, headerPaint);
-//                canvas.drawText(dateText, pageWidth - margin - 130, 30, headerPaint);
-//
-//                // ---------- TITLE ----------
-//                if (title != null && !title.trim().isEmpty()) {
-//                    canvas.drawText("Title: " + title, margin, y, titlePaint);
-//                    y += 40;
-//                }
-//
-//                // ---------- NOTE TEXT ----------
-//                if (noteText != null && !noteText.trim().isEmpty()) {
-//                    int textWidth = pageWidth - (2 * margin);
-//                    int lineHeight = 18;
-//                    String[] paragraphs = noteText.split("\n");
-//
-//                    for (String para : paragraphs) {
-//                        StaticLayout staticLayout;
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                            staticLayout = StaticLayout.Builder.obtain(para, 0, para.length(), bodyPaint, textWidth)
-//                                    .setAlignment(Layout.Alignment.ALIGN_NORMAL)
-//                                    .setLineSpacing(0, 1.3f)
-//                                    .setIncludePad(false)
-//                                    .build();
-//                        } else {
-//                            staticLayout = new StaticLayout(para, bodyPaint, textWidth,
-//                                    Layout.Alignment.ALIGN_NORMAL, 1.3f, 0, false);
-//                        }
-//
-//                        int paraHeight = staticLayout.getHeight();
-//                        if (y + paraHeight > pageHeight - 80) {
-//                            // Footer before next page
-//                            canvas.drawText("Page " + currentPageNumber, pageWidth / 2f, pageHeight - 30, footerPaint);
-//
-//                            pdfDocument.finishPage(page);
-//                            currentPageNumber++;
-//                            pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, currentPageNumber).create();
-//                            page = pdfDocument.startPage(pageInfo);
-//                            canvas = page.getCanvas();
-//
-//                            // Header again
-//                            canvas.drawText(headerText, margin, 30, headerPaint);
-//                            canvas.drawText(dateText, pageWidth - margin - 130, 30, headerPaint);
-//                            y = margin + 40;
-//                        }
-//
-//                        canvas.save();
-//                        canvas.translate(margin, y);
-//                        staticLayout.draw(canvas);
-//                        canvas.restore();
-//                        y += paraHeight + lineHeight;
-//                    }
-//                    y += 20;
-//                }
-//
-//                // ---------- IMAGE OR CANVAS ----------
-//                if (imageBitmap != null) {
-//                    int maxWidth = pageWidth - (2 * margin);
-//                    int maxHeight = pageHeight / 2;
-//                    float scale = Math.min((float) maxWidth / imageBitmap.getWidth(),
-//                            (float) maxHeight / imageBitmap.getHeight());
-//                    Bitmap scaled = Bitmap.createScaledBitmap(
-//                            imageBitmap,
-//                            (int) (imageBitmap.getWidth() * scale),
-//                            (int) (imageBitmap.getHeight() * scale),
-//                            true
-//                    );
-//
-//                    if (y + scaled.getHeight() > pageHeight - 80) {
-//                        // Footer before next page
-//                        canvas.drawText("Page " + currentPageNumber, pageWidth / 2f, pageHeight - 30, footerPaint);
-//
-//                        pdfDocument.finishPage(page);
-//                        currentPageNumber++;
-//                        pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, currentPageNumber).create();
-//                        page = pdfDocument.startPage(pageInfo);
-//                        canvas = page.getCanvas();
-//
-//                        // Header again
-//                        canvas.drawText(headerText, margin, 30, headerPaint);
-//                        canvas.drawText(dateText, pageWidth - margin - 130, 30, headerPaint);
-//                        y = margin + 40;
-//                    }
-//
-//                    canvas.drawBitmap(scaled, margin, y, null);
-//                    y += scaled.getHeight() + 20;
-//                }
-//
-//                // ---------- FOOTER ----------
-//                canvas.drawText("Page " + currentPageNumber, pageWidth / 2f, pageHeight - 30, footerPaint);
-//                pdfDocument.finishPage(page);
-//
-//                // ---------- SAVE PDF ----------
-//                String safeTitle = (title == null || title.isEmpty()) ? "Note" : title.replaceAll("[^a-zA-Z0-9]", "_");
-//                String fileName = safeTitle + "_" + System.currentTimeMillis() + ".pdf";
-//
-//                Uri pdfUri;
-//                OutputStream outputStream;
-//
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//                    ContentValues values = new ContentValues();
-//                    values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
-//                    values.put(MediaStore.Downloads.MIME_TYPE, "application/pdf");
-//                    values.put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + "/MyNotes");
-//
-//                    ContentResolver resolver = requireContext().getContentResolver();
-//                    pdfUri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
-//                    outputStream = resolver.openOutputStream(pdfUri);
-//                } else {
-//                    File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "MyNotes");
-//                    if (!dir.exists()) dir.mkdirs();
-//                    File file = new File(dir, fileName);
-//                    pdfUri = Uri.fromFile(file);
-//                    outputStream = new FileOutputStream(file);
-//                }
-//
-//                pdfDocument.writeTo(outputStream);
-//                pdfDocument.close();
-//                outputStream.close();
-//
-//                requireActivity().runOnUiThread(() -> {
-//                    Toast.makeText(mContext, "PDF saved successfully!", Toast.LENGTH_SHORT).show();
-//                   // sharePDF(pdfUri, fileName);
-//                });
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                requireActivity().runOnUiThread(() ->
-//                        Toast.makeText(mContext, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-//            }
-//        }).start();
-//    }
-
-
     private void saveNoteAsPDF(String title, String noteText, String imageUrl, String noteType) {
 
         new Thread(() -> {
@@ -1008,7 +973,7 @@ public class HomeFragment extends Fragment {
 
                 // ======= 1. LOAD IMAGE (0–20%) =======
                 Bitmap imageBitmap = null;
-                if ((noteType.equalsIgnoreCase("image") || noteType.equalsIgnoreCase("canvas"))
+                if ((noteType.equalsIgnoreCase("IMAGE") || noteType.equalsIgnoreCase("CANVAS"))
                         && imageUrl != null && !imageUrl.trim().isEmpty()) {
 
                     updateDownloadProgress(10, "Loading image...");
@@ -1194,7 +1159,6 @@ public class HomeFragment extends Fragment {
         }).start();
     }
 
-
     private void showProgressBottomSheet() {
         bottomSheetDialog = new BottomSheetDialog(requireContext());
         View view = getLayoutInflater().inflate(R.layout.progress_bottom_sheet, null);
@@ -1215,7 +1179,6 @@ public class HomeFragment extends Fragment {
         bottomSheetDialog.show();
     }
 
-
     private void updateDownloadProgress(int progress, String msg) {
         requireActivity().runOnUiThread(() -> {
             if (bottomSheetDialog != null && bottomSheetDialog.isShowing()) {
@@ -1225,10 +1188,25 @@ public class HomeFragment extends Fragment {
         });
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
         loadNotes(null);
     }
+
+
+    private void cancelReminder(String noteId) {
+        Intent intent = new Intent(mContext, ReminderReceiver.class);
+
+        PendingIntent pi = PendingIntent.getBroadcast(
+                mContext,
+                noteId.hashCode(),
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager am = (AlarmManager) mContext.getSystemService(ALARM_SERVICE);
+        am.cancel(pi);
+    }
+
 }
